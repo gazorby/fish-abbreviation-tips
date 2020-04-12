@@ -14,7 +14,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
 
     # Retrieve abbreviation
     if set -l i (contains -i -- "$argv" $_ABBR_TIPS_VALUES)
-        echo "$_ABBR_TIPS_KEYS[$i] $_ABBR_TIPS_VALUES[$i]"
+        echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$i]\e[0m => $_ABBR_TIPS_VALUES[$i]"
     end
 end
 
