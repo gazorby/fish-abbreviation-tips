@@ -14,7 +14,7 @@ fisher add Gazorby/fish-abbr-tips
 Just use your shell normally and enjoy abbreviations tips!
 
 ### Adding new abbreviations
-Tips are updated at every shell startup (see [behind the scenes](#%f0%9f%8e%a5-behind-the-scenes)), so closing and repoening your shell is enough to get tips updated. But you can also invoke `abbr_tips_update` to manually update tips.
+Tips are updated at every shell startup (see [behind the scenes](#-behind-the-scenes)), so closing and repoening your shell is enough to get tips updated. But you can also invoke `abbr_tips_update` to manually update tips.
 
 ## 🛠 Configuration
 
