@@ -9,8 +9,14 @@ Install using fisher :
 ```console
 fisher add Gazorby/fish-abbr-tips
 ```
+## 🔧 Usage
 
-## 🔧 Configuration
+Just use your shell normally and enjoy abbreviations tips!
+
+### Adding new abbreviations
+Tips are updated at every shell startup (see [behind the scenes](#%f0%9f%8e%a5-behind-the-scenes)), so closing and repoening your shell is enough to get tips updated. But you can also invoke `abbr_tips_update` to manually update tips.
+
+## 🛠 Configuration
 
 ### Alias whitelist
 
@@ -19,6 +25,11 @@ By default, the plugin ignore user defined functions (aliases), because your ali
 But, in some cases, you may write aliases which wrap exisiting commands to add some hooks before/after the actual command execution. In this special case, as your aliases probably don't alter the original command, you may also have abbreviations using these aliases, so you don't want to ignore them.
 
 To do that, just add alias to the `ABBR_TIPS_ALIAS_WHITELIST` environment variable
+
+## 🎥 Behind the scenes
+In order to not slow down your prompt, the plugin store abbreviations in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
+
+The plugin update lists at every shell startup by calling `abbr_tips_update` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238))
 
 ## License
 [MIT](https://github.com/Gazorby/fish-abbr-tips/blob/master/LICENSE)
