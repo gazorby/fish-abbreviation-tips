@@ -14,7 +14,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
        return
     end
 
-    # First test the command as is, then after removing option arguments
+    # Test the command as is, or with option arguments removed
     if set -l abb (contains -i -- "$cmd" $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
         echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$abb]\e[0m => $_ABBR_TIPS_VALUES[$abb]"
