@@ -35,8 +35,9 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     #  - Finally trey with the first three words   (ex : docker volume rm myvolume => docker volume rm)
     if set -l abb (contains -i -- "$cmd" $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
-       or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){3}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
+       or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
+       or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){1}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
         echo -e (string replace -a '{{ .cmd }}' "$_ABBR_TIPS_VALUES[$abb]" \
                 (string replace -a '{{ .abbr }}' "$_ABBR_TIPS_KEYS[$abb]" "$ABBR_TIPS_PROMPT"))
         return
