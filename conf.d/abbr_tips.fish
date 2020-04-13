@@ -5,6 +5,7 @@ bind \r '_abbr_tips_bind_newline'
 set -l uninstall (basename (status -f) .fish){_uninstall}
 
 set -g _abbr_tips_used 0
+set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
 
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
@@ -35,7 +36,8 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){3}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
-        echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$abb]\e[0m => $_ABBR_TIPS_VALUES[$abb]"
+        echo -e (string replace -a '{{ .cmd }}' "$_ABBR_TIPS_VALUES[$abb]" \
+                (string replace -a '{{ .abbr }}' "$_ABBR_TIPS_KEYS[$abb]" "$ABBR_TIPS_PROMPT"))
         return
     end
 end
@@ -47,6 +49,7 @@ function $uninstall --on-event $uninstall
     set --erase _abbr_tips_used
     set --erase _ABBR_TIPS_VALUES
     set --erase _ABBR_TIPS_KEYS
+    set --erase ABBR_TIPS_PROMPT
 end
 
 # Locking mechanism
