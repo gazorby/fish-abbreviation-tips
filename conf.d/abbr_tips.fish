@@ -4,6 +4,8 @@ bind \r '_abbr_tips_bind_newline'
 
 set -l uninstall (basename (status -f) .fish){_uninstall}
 
+set -g _abbr_tips_is_abbr 0
+
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
