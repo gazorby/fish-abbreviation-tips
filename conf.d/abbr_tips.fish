@@ -2,6 +2,8 @@ bind " " '_abbr_tips_bind_space'
 bind \n '_abbr_tips_bind_newline'
 bind \r '_abbr_tips_bind_newline'
 
+set -l uninstall (basename (status -f) .fish){_uninstall}
+
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
@@ -25,6 +27,12 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
         echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$abb]\e[0m => $_ABBR_TIPS_VALUES[$abb]"
         return
     end
+end
+
+function $uninstall --on-event $uninstall
+    bind --erase \n
+    bind --erase \r
+    bind --erase " "
 end
 
 # Locking mechanism
