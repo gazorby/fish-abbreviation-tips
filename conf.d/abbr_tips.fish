@@ -6,7 +6,7 @@ set -g _abbr_tips_used 0
 if ! set -q ABBR_TIPS_PROMPT; set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"; end
 if ! set -q ABBR_TIPS_AUTO_UPDATE; set -gx ABBR_TIPS_AUTO_UPDATE 'background'; end
 
-function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
+function _abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
 
