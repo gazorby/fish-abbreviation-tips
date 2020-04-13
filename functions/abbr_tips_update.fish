@@ -1,8 +1,8 @@
 function abbr_tips_update -d "Update abbreviations variables for fish-abbr-tips"
     set -e _ABBR_TIPS_KEYS
     set -e _ABBR_TIPS_VALUES
-    set -gx _ABBR_TIPS_KEYS
-    set -gx _ABBR_TIPS_VALUES
+    set -Ux _ABBR_TIPS_KEYS
+    set -Ux _ABBR_TIPS_VALUES
 
     set -l i 1
     set -l abb (string replace -r '.*-- ' '' (abbr -s))
