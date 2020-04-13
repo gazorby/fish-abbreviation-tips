@@ -33,5 +33,9 @@ In order to not slow down your prompt, the plugin store abbreviations in lists (
 
 The plugin update lists at every shell startup by calling `abbr_tips_update` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238))
 
+## 👍 Inspiration
+
+Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
+
 ## License
 [MIT](https://github.com/Gazorby/abbr-tips/blob/master/LICENSE)
