@@ -22,16 +22,18 @@ Tips are updated at every shell startup (see [behind the scenes](#-behind-the-sc
 
 ### Tips prompt
 
+`ABBR_TIPS_PROMPT`
+
 By default, tips will showing up like this :
 
 ```console
 💡 ga => git add
 ```
 
-But you customize it using the `ABBR_TIPS_PROMPT` environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation and `{{ .cmd }}` with the corresponding command.
+But you customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation and `{{ .cmd }}` with the corresponding command.
 
 
-This is the default value for `ABBR_TIPS_PROMPT` :
+This is the default :
 
 `"\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"`
 
