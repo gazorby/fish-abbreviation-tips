@@ -1,3 +1,7 @@
+bind " " '_abbr_tips_bind_space'
+bind \n '_abbr_tips_bind_newline'
+bind \r '_abbr_tips_bind_newline'
+
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
@@ -7,6 +11,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     # or it's a function
     if abbr -q "$cmd"
        or ! type -q "$command[1]"
+       or test "$_abbr_tips_is_abbr" = 1
        return
     end
     if test (type -t "$command[1]") = 'function'
