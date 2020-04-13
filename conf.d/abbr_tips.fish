@@ -44,6 +44,9 @@ function $uninstall --on-event $uninstall
     bind --erase \n
     bind --erase \r
     bind --erase " "
+    set --erase _abbr_tips_used
+    set --erase _ABBR_TIPS_VALUES
+    set --erase _ABBR_TIPS_KEYS
 end
 
 # Locking mechanism
