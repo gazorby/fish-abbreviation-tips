@@ -37,5 +37,5 @@ The plugin update lists at every shell startup by calling `abbr_tips_update` in 
 
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
-## License
+## 📝 License
 [MIT](https://github.com/Gazorby/abbr-tips/blob/master/LICENSE)
