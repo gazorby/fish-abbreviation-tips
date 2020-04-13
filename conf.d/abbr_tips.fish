@@ -5,7 +5,7 @@ bind \r '_abbr_tips_bind_newline'
 set -l uninstall (basename (status -f) .fish){_uninstall}
 
 set -g _abbr_tips_used 0
-set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
+if ! set -q ABBR_TIPS_AUTO_UPDATE; set -Ux ABBR_TIPS_AUTO_UPDATE 'background'; end
 
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
@@ -50,13 +50,17 @@ function $uninstall --on-event $uninstall
     set --erase _ABBR_TIPS_VALUES
     set --erase _ABBR_TIPS_KEYS
     set --erase ABBR_TIPS_PROMPT
+    set --erase ABBR_TIPS_AUTO_UPDATE
 end
 
 # Locking mechanism
 # Prevent this file to spawn more than one subshell
 if test "$USER" != 'root'
+   and test $ABBR_TIPS_AUTO_UPDATE = 'background'
     begin
     flock -n 99; or exit
     fish -c 'abbr_tips_update' &
     end 99>/tmp/abbr_fish_lock
+else if test $ABBR_TIPS_AUTO_UPDATE = 'normal'
+    abbr_tips_update
 end
