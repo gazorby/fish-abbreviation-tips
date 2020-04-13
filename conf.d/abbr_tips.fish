@@ -10,6 +10,11 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
 
+    # Exit in the following cases :
+    #  - abbreviation has been used
+    #  - command is already an abbreviation
+    #  - command not found
+    #  - or it's a function (alias)
     if test $_abbr_tips_is_abbr = 1
         set -g _abbr_tips_is_abbr 0
         return
@@ -22,10 +27,10 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     end
 
     # Test the command against multiple regexes :
-    # First test the command as is
-    # Then try with arguments removed           (ex : git commit -m "mucommit"  => git commit -m)
-    # Then try with the first two words         (ex : git add a.txt b.txt       => git add)
-    # Finally trey with the first three words   (ex : docker volume rm myvolume => docker volume rm)
+    #  - First test the command as is
+    #  - Then try with arguments removed           (ex : git commit -m "mucommit"  => git commit -m)
+    #  - Then try with the first two words         (ex : git add a.txt b.txt       => git add)
+    #  - Finally trey with the first three words   (ex : docker volume rm myvolume => docker volume rm)
     if set -l abb (contains -i -- "$cmd" $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
