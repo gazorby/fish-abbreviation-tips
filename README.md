@@ -33,7 +33,7 @@ But you customize it using the `ABBR_TIPS_PROMPT` environment variable. The plug
 
 This is the default value for `ABBR_TIPS_PROMPT` :
 
-`\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}`
+`"\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"`
 
 ⚠️ tips are displayed using `echo -e` (interpretation of backslash escapes)
 
