@@ -2,7 +2,7 @@
 
 [![asciicast](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC.svg)](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC)
 
-Help you remembering abbreviations by displaying them when you can use it
+Help you remembering abbreviations by displaying tips when you can use them
 
 ## 🚀 Install
 
