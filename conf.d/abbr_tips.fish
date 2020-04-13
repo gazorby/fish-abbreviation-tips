@@ -4,7 +4,7 @@ bind \r '_abbr_tips_bind_newline'
 
 set -l uninstall (basename (status -f) .fish){_uninstall}
 
-set -g _abbr_tips_is_abbr 0
+set -g _abbr_tips_used 0
 
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
@@ -15,8 +15,8 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     #  - command is already an abbreviation
     #  - command not found
     #  - or it's a function (alias)
-    if test $_abbr_tips_is_abbr = 1
-        set -g _abbr_tips_is_abbr 0
+    if test $_abbr_tips_used = 1
+        set -g _abbr_tips_used 0
         return
     else if abbr -q "$cmd"
        or ! type -q "$command[1]"
