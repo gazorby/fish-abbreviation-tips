@@ -1,4 +1,4 @@
-# fish-abbr-tips
+# abbr-tips
 
 [![asciicast](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC.svg)](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC)
 
@@ -9,7 +9,7 @@ Help you remembering abbreviations by displaying them when you can use it
 Install using fisher :
 
 ```console
-fisher add Gazorby/fish-abbr-tips
+fisher add Gazorby/abbr-tips
 ```
 ## 🔧 Usage
 
@@ -34,4 +34,4 @@ In order to not slow down your prompt, the plugin store abbreviations in lists (
 The plugin update lists at every shell startup by calling `abbr_tips_update` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238))
 
 ## License
-[MIT](https://github.com/Gazorby/fish-abbr-tips/blob/master/LICENSE)
+[MIT](https://github.com/Gazorby/abbr-tips/blob/master/LICENSE)
