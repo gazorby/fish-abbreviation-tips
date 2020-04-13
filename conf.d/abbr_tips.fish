@@ -5,6 +5,7 @@ bind \r '_abbr_tips_bind_newline'
 set -l uninstall (basename (status -f) .fish){_uninstall}
 
 set -g _abbr_tips_used 0
+if ! set -q ABBR_TIPS_PROMPT; set -Ux ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"; end
 if ! set -q ABBR_TIPS_AUTO_UPDATE; set -Ux ABBR_TIPS_AUTO_UPDATE 'background'; end
 
 function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the current command"
