@@ -15,7 +15,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     # or it's a function
     if abbr -q "$cmd"
        or ! type -q "$command[1]"
-       or test "$_abbr_tips_is_abbr" = 1
+       or test $_abbr_tips_is_abbr = 1
        return
     end
     if test (type -t "$command[1]") = 'function'
@@ -32,6 +32,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){3}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
+        set -g _abbr_tips_is_abbr 0
         echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$abb]\e[0m => $_ABBR_TIPS_VALUES[$abb]"
         return
     end
