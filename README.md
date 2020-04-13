@@ -20,6 +20,24 @@ Tips are updated at every shell startup (see [behind the scenes](#-behind-the-sc
 
 ## 🛠 Configuration
 
+### Tips prompt
+
+By default, tips will showing up like this :
+
+```console
+💡 ga => git add
+```
+
+But you customize it using the `ABBR_TIPS_PROMPT` environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation and `{{ .cmd }}` with the corresponding command.
+
+
+This is the default value for `ABBR_TIPS_PROMPT` :
+
+`\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}`
+
+⚠️ tips are displayed using `echo -e` (interpretation of backslash escapes)
+
+
 ### Alias whitelist
 
 By default, the plugin ignore user defined functions (aliases), because your aliases names are likely to unique, so there wouldn't be an abbreviation with the same name.
