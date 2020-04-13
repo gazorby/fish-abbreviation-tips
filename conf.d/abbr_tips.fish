@@ -2,8 +2,6 @@ bind " " '_abbr_tips_bind_space'
 bind \n '_abbr_tips_bind_newline'
 bind \r '_abbr_tips_bind_newline'
 
-set -l uninstall (basename (status -f) .fish){_uninstall}
-
 set -g _abbr_tips_used 0
 if ! set -q ABBR_TIPS_PROMPT; set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"; end
 if ! set -q ABBR_TIPS_AUTO_UPDATE; set -gx ABBR_TIPS_AUTO_UPDATE 'background'; end
@@ -44,7 +42,7 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
     end
 end
 
-function $uninstall --on-event $uninstall
+function __abbr_tips_uninstall --on-event abbr_tips_uninstall
     bind --erase \n
     bind --erase \r
     bind --erase " "
@@ -53,6 +51,7 @@ function $uninstall --on-event $uninstall
     set --erase _ABBR_TIPS_KEYS
     set --erase ABBR_TIPS_PROMPT
     set --erase ABBR_TIPS_AUTO_UPDATE
+    set --erase ABBR_TIPS_ALIAS_WHITELIST
 end
 
 # Locking mechanism
