@@ -40,11 +40,25 @@ This is the default value for `ABBR_TIPS_PROMPT` :
 
 ### Alias whitelist
 
+`ABBR_TIPS_ALIAS_WHITELIST`
+
 By default, the plugin ignore user defined functions (aliases), because your aliases names are likely to unique, so there wouldn't be an abbreviation with the same name.
 
 But, in some cases, you may write aliases which wrap exisiting commands to add some hooks before/after the actual command execution. In this special case, as your aliases probably don't alter the original command, you may also have abbreviations using these aliases, so you don't want to ignore them.
 
-To do that, just add alias to the `ABBR_TIPS_ALIAS_WHITELIST` environment variable
+To do that, just add alias to the environment variable
+
+### Tips update mode
+
+`ABBR_TIPS_AUTO_UPDATE`
+
+Values :
+- `background` (default) Run update in background (spawn a shell)
+- `normal` Run update in foreground (don't spawn a shell, but might slow down startup)
+- Any other value disable auto updating
+
+The plugin maintain two lists (see below) to avoid abbreviation lookup each time you type a command. By default these lists get updated in *background* every time you open a shell, but this implies to spawn shell to actually run the update function. If you don't want this behavior, you can tell the plugin to load abbreviations  normally (i.e in foreground) by invoking the update function at every shell startup, or to simply disable auto updating (but you'll have to call `abbr_tips_update` manually every time you add an abbreviation). If you have many abbreviations, `normal` mode may slow down your startup time, this is why `background` exists.
+
 
 ## 🎥 Behind the scenes
 In order to not slow down your prompt, the plugin store abbreviations in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
