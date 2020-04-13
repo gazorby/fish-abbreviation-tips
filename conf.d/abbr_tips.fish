@@ -21,9 +21,15 @@ function abbr_fish --on-event fish_postexec -d "Abbreviation reminder for the cu
        return
     end
 
-    # Test the command as is, or with option arguments removed
+    # Test the command against multiple regexes :
+    # First test the command as is
+    # Then try with arguments removed           (ex : git commit -m "mucommit"  => git commit -m)
+    # Then try with the first two words         (ex : git add a.txt b.txt       => git add)
+    # Finally trey with the first three words   (ex : docker volume rm myvolume => docker volume rm)
     if set -l abb (contains -i -- "$cmd" $_ABBR_TIPS_VALUES)
        or set -l abb (contains -i -- (string replace -r -a '((-{1,2})\\w+)(\\s\\S+)' '$1' "$cmd") $_ABBR_TIPS_VALUES)
+       or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){2}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
+       or set -l abb (contains -i -- (string replace -r -a '(^( ?\\w+){3}).*' '$1' "$cmd") $_ABBR_TIPS_VALUES)
         echo -e "\n💡 \e[1m$_ABBR_TIPS_KEYS[$abb]\e[0m => $_ABBR_TIPS_VALUES[$abb]"
         return
     end
