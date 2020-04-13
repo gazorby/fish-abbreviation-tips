@@ -1,5 +1,7 @@
 # fish-abbr-tips
 
+[![asciicast](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC.svg)](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC)
+
 Help you remembering abbreviations by displaying them when you can use it
 
 ## 🚀 Install
