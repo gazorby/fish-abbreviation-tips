@@ -51,7 +51,9 @@ end
 
 # Locking mechanism
 # Prevent this file to spawn more than one subshell
-begin
-flock -n 99; or exit
-fish -c 'abbr_tips_update' &
-end 99>/tmp/abbr_fish_lock
+if test "$USER" != 'root'
+    begin
+    flock -n 99; or exit
+    fish -c 'abbr_tips_update' &
+    end 99>/tmp/abbr_fish_lock
+end
