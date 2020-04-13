@@ -52,6 +52,10 @@ function __abbr_tips_uninstall --on-event abbr_tips_uninstall
     set --erase ABBR_TIPS_PROMPT
     set --erase ABBR_TIPS_AUTO_UPDATE
     set --erase ABBR_TIPS_ALIAS_WHITELIST
+    functions --erase abbr_tips_update
+    functions --erase _abbr_tips_bind_newline
+    functions --erase _abbr_tips_bind_space
+    functions --erase abbr_fish
 end
 
 # Locking mechanism
