@@ -20,6 +20,10 @@ Tips are updated at every shell startup (see [behind the scenes](#-behind-the-sc
 
 ## 🛠 Configuration
 
+Configuration is done through environment variables.
+
+To avoid spamming your `config.fish`, you can set environment variables using `set -U` once, to make them persistent across restarts and share them across fish's instances
+
 ### Tips prompt
 
 `ABBR_TIPS_PROMPT`
