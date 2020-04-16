@@ -62,10 +62,10 @@ end
 # Prevent this file to spawn more than one subshell
 if test "$USER" != 'root'
    and test $ABBR_TIPS_AUTO_UPDATE = 'background'
-    begin
-    flock -n 99; or exit
+   and ! test $_abbr_tips_is_spawned = 1
+    set -gx _abbr_tips_is_spawned 1
     fish -c 'abbr_tips_update' &
-    end 99>/tmp/abbr_fish_lock
+    set -e _abbr_tips_is_spawned
 else if test $ABBR_TIPS_AUTO_UPDATE = 'normal'
     abbr_tips_update
 end
