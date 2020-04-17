@@ -6,9 +6,12 @@
 * fix: test variable existence instead of value ([f33cf23](https://github.com/Gazorby/abbr-tips/commit/f33cf23))
 * fix: update function to erase on uninstall ([ba239d1](https://github.com/Gazorby/abbr-tips/commit/ba239d1))
 
-# [](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v) (2020-04-16)
+# [0.3.0](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v0.3.0) (2020-04-16)
 
-# [](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v) (2020-04-13)
+
+### 🐛 Refactor
+
+* refactor: remove flock dependency ([376072d](https://github.com/Gazorby/abbr-tips/commit/376072d))
 
 
 # [0.2.0](https://github.com/Gazorby/abbr-tips/compare/v0.1.0...v0.2.0) (2020-04-13)
@@ -41,4 +44,3 @@
 * fix: prompt variable not properly set ([1cc43e0](https://github.com/Gazorby/abbr-tips/commit/1cc43e0))
 * fix: properly resetting abbr status ([59e90e2](https://github.com/Gazorby/abbr-tips/commit/59e90e2))
 * fix: reset abbr status after displaying tip ([46c70c1](https://github.com/Gazorby/abbr-tips/commit/46c70c1))
-
