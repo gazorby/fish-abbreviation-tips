@@ -1,3 +1,11 @@
+# [](https://github.com/Gazorby/abbr-tips/compare/v0.3.0...v) (2020-04-17)
+
+
+### 🐛 Bug Fixes
+
+* fix: test variable existence instead of value ([f33cf23](https://github.com/Gazorby/abbr-tips/commit/f33cf23))
+* fix: update function to erase on uninstall ([ba239d1](https://github.com/Gazorby/abbr-tips/commit/ba239d1))
+
 # [](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v) (2020-04-16)
 
 # [](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v) (2020-04-13)
