@@ -1,4 +1,4 @@
-# fish-abbreviation-tips
+# fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.3.1-<COLOR>.svg)](https://shields.io/)
 
 [![asciicast](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC.svg)](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC)
 
@@ -75,8 +75,6 @@ The plugin update lists at every shell startup by calling `abbr_tips_update` in 
 
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
-## 🔖 Version
-[v0.3.1](https://github.com/Gazorby/fish-abbreviation-tips/releases/latest)
 
 ## 📝 License
 [MIT](https://github.com/Gazorby/fish-abbreviation-tips/blob/master/LICENSE)
