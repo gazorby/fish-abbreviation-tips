@@ -75,5 +75,8 @@ The plugin update lists at every shell startup by calling `abbr_tips_update` in 
 
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
+## 🔖 Version
+[v0.3.1](https://github.com/Gazorby/fish-abbreviation-tips/releases/latest)
+
 ## 📝 License
 [MIT](https://github.com/Gazorby/fish-abbreviation-tips/blob/master/LICENSE)
