@@ -1,7 +1,5 @@
-## 0.3.1 (2020-04-20)
-- 📝 docs: update comments
+## 0.4.0 (2020-04-20)
 - ⚡ perf: update abbreviations list incrementally
-- 📝 docs: update readme
 
 # [0.3.1](https://github.com/Gazorby/abbr-tips/compare/v0.3.0...v0.3.1) (2020-04-17)
 
