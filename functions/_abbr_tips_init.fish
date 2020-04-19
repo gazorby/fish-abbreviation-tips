@@ -1,4 +1,4 @@
-function abbr_tips_update -d "Update abbreviations variables for fish-abbr-tips"
+function _abbr_tips_init -d "Initialize abbreviations variables for fish-abbr-tips"
     set -e _ABBR_TIPS_KEYS
     set -e _ABBR_TIPS_VALUES
     set -Ux _ABBR_TIPS_KEYS
