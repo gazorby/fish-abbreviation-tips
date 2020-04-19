@@ -15,8 +15,8 @@ fisher add Gazorby/fish-abbreviation-tips
 
 Just use your shell normally and enjoy abbreviations tips!
 
-### Adding new abbreviations
-Tips are updated at every shell startup (see [behind the scenes](#-behind-the-scenes)), so closing and repoening your shell is enough to get tips updated. But you can also invoke `abbr_tips_update` to manually update tips.
+### Adding / removing abbreviations
+The plugin automatically track changes when adding/removing abbreviations using `abbr` command (see [behind the scenes](#-behind-the-scenes)), so you won't see tips anymore for an abbreviation that has been erased, and you will get new ones for newly added abbreviations
 
 ## 🛠 Configuration
 
@@ -54,22 +54,10 @@ But, in some cases, you may write aliases which wrap exisiting commands to add s
 
 To do that, just add alias to the environment variable
 
-### Tips update mode
-
-`ABBR_TIPS_AUTO_UPDATE`
-
-Values :
-- `background` (default) Run update in background (spawn a shell)
-- `normal` Run update in foreground (don't spawn a shell, but might slow down startup)
-- Any other value disable auto updating
-
-The plugin maintain two lists (see below) to avoid abbreviation lookup each time you type a command. By default these lists get updated in *background* every time you open a shell, but this implies to spawn shell to actually run the update function. If you don't want this behavior, you can tell the plugin to load abbreviations  normally (i.e in foreground) by invoking the update function at every shell startup, or to simply disable auto updating (but you'll have to call `abbr_tips_update` manually every time you add an abbreviation). If you have many abbreviations, `normal` mode may slow down your startup time, this is why `background` exists.
-
-
 ## 🎥 Behind the scenes
-In order to not slow down your prompt, the plugin store abbreviations in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
+In order to not slow down your prompt, the plugin store abbreviations and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
 
-The plugin update lists at every shell startup by calling `abbr_tips_update` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238))
+The plugin will create lists once during installation by calling `_abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation using `abbr` builtin.
 
 ## 👍 Inspiration
 
