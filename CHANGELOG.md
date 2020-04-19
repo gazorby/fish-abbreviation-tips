@@ -1,22 +1,22 @@
-# [0.3.1](https://github.com/Gazorby/abbr-tips/compare/v0.3.0...v0.3.1) (2020-04-17)
+## 0.3.1 (2020-04-20)
+- 📝 docs: update comments
+- ⚡ perf: update abbreviations list incrementally
+- 📝 docs: update readme
 
+# [0.3.1](https://github.com/Gazorby/abbr-tips/compare/v0.3.0...v0.3.1) (2020-04-17)
 
 ### 🐛 Bug Fixes
 
 * fix: test variable existence instead of value ([f33cf23](https://github.com/Gazorby/abbr-tips/commit/f33cf23))
 * fix: update function to erase on uninstall ([ba239d1](https://github.com/Gazorby/abbr-tips/commit/ba239d1))
 
-
 # [0.3.0](https://github.com/Gazorby/abbr-tips/compare/v0.2.0...v0.3.0) (2020-04-16)
-
 
 ### ♻️ Refactor
 
 * refactor: remove flock dependency ([376072d](https://github.com/Gazorby/abbr-tips/commit/376072d))
 
-
 # [0.2.0](https://github.com/Gazorby/abbr-tips/compare/v0.1.0...v0.2.0) (2020-04-13)
-
 
 ### 🐛 Bug Fixes
 
@@ -25,9 +25,7 @@
 * fix: fix uninstall function ([b58971f](https://github.com/Gazorby/abbr-tips/commit/b58971f))
 * fix: still need univresal scope for abbr lists ([6a700a0](https://github.com/Gazorby/abbr-tips/commit/6a700a0))
 
-
 # [0.1.0](https://github.com/Gazorby/abbr-tips/compare/f5ab8ed...v0.1.0) (2020-04-13)
-
 
 ### ✨ Features
 
@@ -35,7 +33,6 @@
 * feat: customize tips update mode ([4681009](https://github.com/Gazorby/abbr-tips/commit/4681009))
 * feat: don't show tips if an abbr was used ([5f2e6ac](https://github.com/Gazorby/abbr-tips/commit/5f2e6ac))
 * feat: prettier tips ([f5ab8ed](https://github.com/Gazorby/abbr-tips/commit/f5ab8ed))
-
 
 ### 🐛 Bug Fixes
 
