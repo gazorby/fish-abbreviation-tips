@@ -1,6 +1,6 @@
 # fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.4.0-<COLOR>.svg)](https://shields.io/)
 
-[![asciicast](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC.svg)](https://asciinema.org/a/2Cbvv03MZMtZmOBFv4E9qrWMC)
+[![asciicast](https://asciinema.org/a/322043.svg)](https://asciinema.org/a/322043)
 
 Help you remembering abbreviations by displaying tips when you can use them
 
