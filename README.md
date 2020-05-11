@@ -27,10 +27,10 @@ To avoid spamming your `config.fish`, you can set environment variables using `s
 ### Default configuration
 
 ```console
-`ABBR_TIPS_PROMPT` `"\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"`
-`ABBR_TIPS_ALIAS_WHITELIST` # Not set
+ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
+ABBR_TIPS_ALIAS_WHITELIST # Not set
 
-`ABBR_TIPS_REGEXES` '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)' '(^( ?\w+){3}).*' '(^( ?\w+){2}).*' '(^( ?\w+){1}).*'
+ABBR_TIPS_REGEXES '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)' '(^( ?\w+){3}).*' '(^( ?\w+){2}).*' '(^( ?\w+){1}).*'
 # 1 : Test command with arguments removed
 # 2 : Test the firsts three words
 # 3 : Test the firsts two words
