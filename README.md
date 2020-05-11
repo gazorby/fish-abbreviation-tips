@@ -24,6 +24,19 @@ Configuration is done through environment variables.
 
 To avoid spamming your `config.fish`, you can set environment variables using `set -U` once, to make them persistent across restarts and share them across fish's instances
 
+### Default configuration
+
+```console
+`ABBR_TIPS_PROMPT` `"\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"`
+`ABBR_TIPS_ALIAS_WHITELIST` # Not set
+
+`ABBR_TIPS_REGEXES` '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)' '(^( ?\w+){3}).*' '(^( ?\w+){2}).*' '(^( ?\w+){1}).*'
+# 1 : Test command with arguments removed
+# 2 : Test the firsts three words
+# 3 : Test the firsts two words
+# 4 : Test the first word
+```
+
 ### Tips prompt
 
 `ABBR_TIPS_PROMPT`
@@ -37,10 +50,6 @@ By default, tips will showing up like this :
 But you customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation and `{{ .cmd }}` with the corresponding command.
 
 
-This is the default :
-
-`"\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"`
-
 ⚠️ tips are displayed using `echo -e` (interpretation of backslash escapes)
 
 
@@ -53,6 +62,21 @@ By default, the plugin ignore user defined functions (aliases), because your ali
 But, in some cases, you may write aliases which wrap exisiting commands to add some hooks before/after the actual command execution. In this special case, as your aliases probably don't alter the original command, you may also have abbreviations using these aliases, so you don't want to ignore them.
 
 To do that, just add alias to the environment variable
+
+### Regexes
+
+`ABBR_TIPS_REGEXES`
+
+If the command dosn't match an abbreviation exactly, then it is tested against some regexes to try extracting a possible abbreviation.
+
+For example, you could have an abbreviation like this :
+```console
+gcm => git commit -m
+```
+So you want a tip when typing `git commit -m "my commit"`, but the command doesn't match exactly `git commit -m`.
+To tackle this, we have a default regex that will match commands with arguments removed, so your `git commit -m "my commit"` will be tested as `git commit -m`.
+
+You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Keep in mind that only the *first matching group* will be tested (so you must have at least one per regex)
 
 ## 🎥 Behind the scenes
 In order to not slow down your prompt, the plugin store abbreviations and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
