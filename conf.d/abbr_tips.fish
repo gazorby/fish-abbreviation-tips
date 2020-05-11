@@ -3,8 +3,8 @@ bind \n '_abbr_tips_bind_newline'
 bind \r '_abbr_tips_bind_newline'
 
 set -g _abbr_tips_used 0
-if ! set -q ABBR_TIPS_PROMPT; set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"; end
-if ! set -q ABBR_TIPS_AUTO_UPDATE; set -gx ABBR_TIPS_AUTO_UPDATE 'background'; end
+if not set -q ABBR_TIPS_PROMPT; set -gx ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"; end
+if not set -q ABBR_TIPS_AUTO_UPDATE; set -gx ABBR_TIPS_AUTO_UPDATE 'background'; end
 
 # Regexes used to find abbreviation inside command
 # Only the first matching group will be tested as an abbr
@@ -23,7 +23,7 @@ function _abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the c
     # Update abbreviations lists when adding/removing abbreviations
     if test "$command[1]" = "abbr"
         if string match -q -r '^--append|-a$' -- "$command[2]"
-           and ! contains -- "$command[3]" $_ABBR_TIPS_KEYS
+           and not contains -- "$command[3]" $_ABBR_TIPS_KEYS
                 set -a _ABBR_TIPS_KEYS "$command[3]"
                 set -a _ABBR_TIPS_VALUES  "$command[4..-1]"
         else if string match -q -r '^--erase|-e$' -- "$command[2]"
@@ -42,10 +42,10 @@ function _abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the c
         set -g _abbr_tips_used 0
         return
     else if abbr -q "$cmd"
-       or ! type -q "$command[1]"
+       or not type -q "$command[1]"
        return
     else if test (type -t "$command[1]") = 'function'
-       and ! contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
+       and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
        return
     end
 
@@ -87,7 +87,7 @@ end
 # Locking mechanism
 # Prevent this file to spawn more than one subshell
 if test "$USER" != 'root'
-   and ! set -q _abbr_tips_run_once
+   and not set -q _abbr_tips_run_once
     set -Ux _abbr_tips_run_once 1
     fish -c '_abbr_tips_init' &
 end
