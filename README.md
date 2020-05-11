@@ -26,7 +26,7 @@ To avoid spamming your `config.fish`, you can set environment variables using `s
 
 ### Default configuration
 
-```console
+```fish
 ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
 ABBR_TIPS_ALIAS_WHITELIST # Not set
 
