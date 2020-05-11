@@ -1,9 +1,6 @@
 ## 0.5.0 (2020-05-12)
-- 📝 docs: update readme
 - ✨ feat: customize regexes
-- 📝 docs: update readme
 - ♻️ ref: use verbose conditional operators
-- 📝 docs: update readme
 
 ## 0.4.0 (2020-04-20)
 - ⚡ perf: update abbreviations list incrementally
