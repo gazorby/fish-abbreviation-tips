@@ -57,11 +57,11 @@ But you customize it using the prompt environment variable. The plugin will repl
 
 `ABBR_TIPS_ALIAS_WHITELIST`
 
-By default, the plugin ignore user defined functions (aliases), because your aliases names are likely to unique, so there wouldn't be an abbreviation with the same name.
+By default, if the command is a user defined function (alias) the plugin won't search for a matching abbreviation because your aliases names are likely to be uniques, so there wouldn't be abbreviations with the same names.
 
-But, in some cases, you may write aliases which wrap exisiting commands to add some hooks before/after the actual command execution. In this special case, as your aliases probably don't alter the original command, you may also have abbreviations using these aliases, so you don't want to ignore them.
+But, in some cases, you may write aliases which wrap existing commands without altering their actual execution (ex : add some hooks before/after the command execution). In this special case, you may also have abbreviations using these aliases, so you don't want to ignore them.
 
-To do that, just add alias to the environment variable
+To do that, just add these aliases to the environment variable
 
 ### Regexes
 
@@ -76,7 +76,7 @@ gcm => git commit -m
 So you want a tip when typing `git commit -m "my commit"`, but the command doesn't match exactly `git commit -m`.
 To tackle this, we have a default regex that will match commands with arguments removed, so your `git commit -m "my commit"` will be tested as `git commit -m`.
 
-You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Keep in mind that only the *first matching group* will be tested (so you must have at least one per regex)
+You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex match an abbreviation, it won't go further. Keep in mind that only the *first matching group* will be tested. (so you must have at least one per regex)
 
 ## 🎥 Behind the scenes
 In order to not slow down your prompt, the plugin store abbreviations and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
