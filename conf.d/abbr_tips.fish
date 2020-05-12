@@ -11,9 +11,9 @@ if not set -q ABBR_TIPS_AUTO_UPDATE; set -gx ABBR_TIPS_AUTO_UPDATE 'background';
 if not set -q ABBR_TIPS_REGEXES
     set -gx ABBR_TIPS_REGEXES
     set -a ABBR_TIPS_REGEXES '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)'
-    set -a ABBR_TIPS_REGEXES '(^( ?\w+){3}).*'
-    set -a ABBR_TIPS_REGEXES '(^( ?\w+){2}).*'
-    set -a ABBR_TIPS_REGEXES '(^( ?\w+){1}).*'
+    set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){3}).*'
+    set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){2}).*'
+    set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){1}).*'
 end
 
 function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the current command"
