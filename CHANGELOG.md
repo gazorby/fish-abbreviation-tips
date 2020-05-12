@@ -1,3 +1,7 @@
+## 0.5.1 (2020-05-12)
+- ♻️ ref: prefix with '__' for private scope
+- 🐛 fix(regex): don't treat '-' as a word separator
+
 ## 0.5.0 (2020-05-12)
 - ✨ feat: customize regexes
 - ♻️ ref: use verbose conditional operators

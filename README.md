@@ -1,4 +1,4 @@
-# fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.5.0-<COLOR>.svg)](https://shields.io/)
+# fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.5.1-<COLOR>.svg)](https://shields.io/)
 
 [![asciicast](https://asciinema.org/a/322043.svg)](https://asciinema.org/a/322043)
 
