@@ -1,4 +1,4 @@
-# fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.5.1-<COLOR>.svg)](https://shields.io/)
+# fish-abbreviation-tips [![Generic badge](https://img.shields.io/badge/Version-v0.5.1-<COLOR>.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/fish->=3.1.0-red.svg)](https://shields.io/)
 
 [![asciicast](https://asciinema.org/a/322043.svg)](https://asciinema.org/a/322043)
 
@@ -83,7 +83,11 @@ In order to not slow down your prompt, the plugin store abbreviations and their 
 
 The plugin will create lists once during installation by calling `__abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation using `abbr` builtin.
 
-## 👍 Inspiration
+## ✅ Support
+
+- [fish](https://github.com/fish-shell/fish-shell) 3.1.0+
+
+## 💭 Inspiration
 
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
