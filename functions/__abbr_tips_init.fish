@@ -12,4 +12,13 @@ function __abbr_tips_init -d "Initialize abbreviations variables for fish-abbr-t
         set -a __ABBR_TIPS_VALUES  (string trim -c '\'' "$current_abb[2]")
         set i (math $i + 1)
     end
+
+    set -l i 1
+    set -l abb (string replace -r '.*-- ' '' (alias -s))
+    while test $i -le (count $abb)
+        set -l current_abb (string split -m2 ' ' "$abb[$i]")
+        set -a __ABBR_TIPS_KEYS "$current_abb[2]"
+        set -a __ABBR_TIPS_VALUES (string trim -c '\'' "$current_abb[3]")
+        set i (math $i + 1)
+    end
 end
