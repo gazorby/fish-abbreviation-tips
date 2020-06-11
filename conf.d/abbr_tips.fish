@@ -63,6 +63,10 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
        return
     else if alias | grep -q "^alias $cmd "
         return
+    else if test (type -t "$command[1]") = 'function'
+        and count $ABBR_TIPS_ALIAS_WHITELIST >/dev/null
+        and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
+        return
     end
 
     set -l abb
