@@ -61,7 +61,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     else if abbr -q "$cmd"
        or not type -q "$command[1]"
        return
-    else if alias | grep -q "^alias $cmd "
+    else if string match -q "alias $cmd *" (alias)
         return
     else if test (type -t "$command[1]") = 'function'
         and count $ABBR_TIPS_ALIAS_WHITELIST >/dev/null
