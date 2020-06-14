@@ -33,18 +33,22 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         end
     else if test "$command[1]" = "alias"
         # Update abbreviations list when adding aliases
+        set -l alias_key
+        set -l alias_value
+
         if string match -q '*=*' "$command[2]"
             set command_split (string split = $command[2])
-            set -a command_split $command[3..-1]
-            if not contains -- "$command_split[1]" $__ABBR_TIPS_KEYS
-                set -a __ABBR_TIPS_KEYS $command_split[1]
-                set -a __ABBR_TIPS_VALUES (string trim -c '\'"' $command_split[2..-1] | string join ' ')
-            end
+            set alias_key $command_split[1]
+            set alias_value $command_split[2]
+            set -a alias_value $command[3..-1]
         else
-            if not contains -- "$command[2]" $__ABBR_TIPS_KEYS
-                set -a __ABBR_TIPS_KEYS $command[2]
-                set -a __ABBR_TIPS_VALUES (string trim -c '\'"' $command[3..-1] | string join ' ')
-            end
+            set alias_key $command[2]
+            set alias_value $command[3..-1]
+        end
+
+        if not contains -- "$alias_key" $__ABBR_TIPS_KEYS
+            set -a __ABBR_TIPS_KEYS $alias_key
+            set -a __ABBR_TIPS_VALUES (string trim -c '\'"' $alias_value | string join ' ')
         end
     else if test "$command[1]" = "functions"
         # Update abbreviations list when removing aliases
