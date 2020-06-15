@@ -48,10 +48,10 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
 
         if set -l abb (contains -i -- "$command[3]" $__ABBR_TIPS_KEYS)
             set __ABBR_TIPS_KEYS[$abb] $alias_key
-            set __ABBR_TIPS_VALUES[$abb] (string trim -c '\'"' $alias_value | string join ' ')
+            set __ABBR_TIPS_VALUES[$abb] (string trim -c '\'"' -- $alias_value | string join ' ')
         else
             set -a __ABBR_TIPS_KEYS $alias_key
-            set -a __ABBR_TIPS_VALUES (string trim -c '\'"' $alias_value | string join ' ')
+            set -a __ABBR_TIPS_VALUES (string trim -c '\'"' -- $alias_value | string join ' ')
         end
     else if test "$command[1]" = "functions"
         # Update abbreviations list when removing aliases
