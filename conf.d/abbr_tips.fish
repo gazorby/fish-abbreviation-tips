@@ -37,10 +37,12 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         set -l alias_value
 
         if string match -q '*=*' "$command[2]"
-            set command_split (string split = $command[2])
-            set alias_key $command_split[1]
-            set alias_value $command_split[2]
-            set -a alias_value $command[3..-1]
+            if test (count $command) = 2
+                set command_split (string split = $command[2])
+                set alias_key $command_split[1]
+                set alias_value $command_split[2]
+                set -a alias_value $command[3..-1]
+            end
         else
             set alias_key $command[2]
             set alias_value $command[3..-1]
