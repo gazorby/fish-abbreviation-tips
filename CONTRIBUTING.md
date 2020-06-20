@@ -15,3 +15,6 @@ Please open an issue and discuss the problem / feature before starting to code.
 - Follow [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification)
 - If you like emojis, follow [gitmoji guide](https://gitmoji.carloscuesta.me/)
 
+## Test
+
+You can use (and enhance!) scripts in `test` folder to test your code. You need to run the tests with [fishtape](https://github.com/jorgebucaran/fishtape)
