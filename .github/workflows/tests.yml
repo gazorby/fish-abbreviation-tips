@@ -21,19 +21,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       # Runs a set of commands using the runners shell
       - name: Install fish
-      - run: |
+        run: |
           sudo apt-get update
           sudo apt-get -y install fish
 
       - name: Install fisher
-      - run: |
+        run: |
           fish --version
           curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 
       # Runs a single command using the runners shell
       - name: Run tests
-      - run: fish -c "fisher add jorgebucaran/fishtape .; fishtape test/*.fish"
+        run: fish -c "fisher add jorgebucaran/fishtape .; fishtape test/*.fish"
