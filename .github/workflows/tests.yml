@@ -26,6 +26,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install fish
         run: |
+          sudo add-apt-repository ppa:fish-shell/release-3
           sudo apt-get update
           sudo apt-get -y install fish
 
