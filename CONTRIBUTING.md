@@ -18,3 +18,9 @@ Please open an issue and discuss the problem / feature before starting to code.
 ## Test
 
 You can use (and enhance!) scripts in `test` folder to test your code. You need to run the tests with [fishtape](https://github.com/jorgebucaran/fishtape)
+
+## IDE
+
+If you are using Visual Studio Code, i recommend these extensions :
+- [fish-vscode](https://marketplace.visualstudio.com/items?itemName=skyapps.fish-vscode) for syntax highlighting
+- [fish-ide](https://marketplace.visualstudio.com/items?itemName=lunaryorn.fish-ide) for syntax errors checking
