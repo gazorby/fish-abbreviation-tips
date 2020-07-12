@@ -1,5 +1,5 @@
 # Use with jorgebucaran/fishtape to run tests
-# i.e. fishtape tests/fish-abbreviation-tips.fish
+# i.e. fishtape test/fish-abbreviation-tips.fish
 
 function setup
     # Source plugin
@@ -24,37 +24,81 @@ end
 # Tests
 @test "initial tip key" (
   abbr -a __abbr_test ps
-  set -e "$__ABBR_TIPS_KEYS[-1]"
+  set -e __ABBR_TIPS_KEYS
   __abbr_tips_init
   contains "__abbr_test" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "initial tip value" (
   abbr -a __abbr_test ps
-  set -e "$__ABBR_TIPS_VALUES[-1]"
+  set -e __ABBR_TIPS_VALUES
   __abbr_tips_init
   contains "ps" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
-@test "add tip key" (
+@test "add abbreviation tip key" (
   __abbr_tips 'abbr -a __abbr_test ps'
-) "$__ABBR_TIPS_KEYS[-1]" = "__abbr_test"
+  contains "__abbr_test" $__ABBR_TIPS_KEYS
+) "$status" = 0
 
-@test "add tip value" (
+@test "add abbreviation tip value" (
   __abbr_tips 'abbr -a __abbr_test ps'
-) "$__ABBR_TIPS_VALUES[-1]" = "ps"
+  contains "ps" $__ABBR_TIPS_VALUES
+) "$status" = 0
 
-@test "remove tip key" (
-  __abbr_tips 'abbr -a __abbr_test ps'
-  __abbr_tips 'abbr -e __abbr_test'
-) "$__ABBR_TIPS_KEYS[-1]" != "__abbr_test"
 
-@test "remove tip value" (
+@test "remove abbreviation tip key" (
   __abbr_tips 'abbr -a __abbr_test ps'
   __abbr_tips 'abbr -e __abbr_test'
-) "$__ABBR_TIPS_VALUES[-1]" != "__abbr_test"
+  not contains "__abbr_test" $__ABBR_TIPS_KEYS
+) "$status" = 0
 
-@test "tip match" (
+@test "remove abbreviation tip value" (
+  __abbr_tips 'abbr -a __abbr_test ps'
+  __abbr_tips 'abbr -e __abbr_test'
+  not contains "ps" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add alias tip key" (
+  __abbr_tips  'alias __abbr_test_alias "grep -q"'
+  contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+@test "add alias tip value" (
+  __abbr_tips  'alias __abbr_test_alias "grep -q"'
+  contains "grep -q" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add alias tip value with =" (
+  __abbr_tips  'alias __abbr_test_alias=grep"'
+  contains "grep" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add alias tip key with =" (
+  __abbr_tips  'alias __abbr_test_alias=grep"'
+  contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+
+@test "remove alias tip key" (
+  __abbr_tips  'alias __abbr_test_alias "grep -q"'
+  __abbr_tips  'functions --erase __abbr_test_alias'
+  not contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+@test "remove alias tip value" (
+  __abbr_tips  'alias __abbr_test_alias "grep -q"'
+  __abbr_tips 'functions --erase __abbr_test_alias'
+  not contains "grep -q" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "abbreviation tip match" (
   __abbr_tips 'abbr -a __abbr_test ps'
   echo (__abbr_tips 'ps')
 ) = "__abbr_test => ps"
+
+@test "alias tip match" (
+  alias __abbr_test_alias "grep -q"
+  __abbr_tips 'alias __abbr_test_alias "grep -q"'
+  echo (__abbr_tips 'grep -q')
+) = "__abbr_test_alias => grep -q"
