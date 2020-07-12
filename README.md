@@ -2,7 +2,7 @@
 
 [![asciicast](https://asciinema.org/a/322043.svg)](https://asciinema.org/a/322043)
 
-Help you remembering abbreviations by displaying tips when you can use them
+Help you remembering abbreviations and aliases by displaying tips when you can use them
 
 ## 🚀 Install
 
@@ -13,10 +13,10 @@ fisher add Gazorby/fish-abbreviation-tips
 ```
 ## 🔧 Usage
 
-Just use your shell normally and enjoy abbreviations tips!
+Just use your shell normally and enjoy tips!
 
-### Adding / removing abbreviations
-The plugin automatically track changes when adding/removing abbreviations using `abbr` command (see [behind the scenes](#-behind-the-scenes)), so you won't see tips anymore for an abbreviation that has been erased, and you will get new ones for newly added abbreviations
+### Adding / removing abbreviations or aliases
+The plugin automatically track changes when adding/removing abbreviations or aliases using `abbr` or `functions` commands (see [behind the scenes](#-behind-the-scenes)), so you won't see tips anymore for an abbreviation/alias that has been erased, and you will get new ones for newly added abbreviations/aliases
 
 ## 🛠 Configuration
 
@@ -47,7 +47,7 @@ By default, tips will showing up like this :
 💡 ga => git add
 ```
 
-But you customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation and `{{ .cmd }}` with the corresponding command.
+But you customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation/alias and `{{ .cmd }}` with the corresponding command.
 
 
 ⚠️ tips are displayed using `echo -e` (interpretation of backslash escapes)
@@ -67,21 +67,21 @@ To do that, just add these aliases to the environment variable
 
 `ABBR_TIPS_REGEXES`
 
-If the command dosn't match an abbreviation exactly, then it is tested against some regexes to try extracting a possible abbreviation.
+If the command dosn't match an abbreviation/alias exactly, then it is tested against some regexes to try extracting a possible abbreviation/alias.
 
-For example, you could have an abbreviation like this :
+For example, you could have an abbreviation/alias like this :
 ```console
 gcm => git commit -m
 ```
 So you want a tip when typing `git commit -m "my commit"`, but the command doesn't match exactly `git commit -m`.
 To tackle this, we have a default regex that will match commands with arguments removed, so your `git commit -m "my commit"` will be tested as `git commit -m`.
 
-You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex match an abbreviation, it won't go further. Keep in mind that only the *first matching group* will be tested. (so you must have at least one per regex)
+You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex match an abbreviation/alias, it won't go further. Keep in mind that only the *first matching group* will be tested. (so you must have at least one per regex)
 
 ## 🎥 Behind the scenes
-In order to not slow down your prompt, the plugin store abbreviations and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations each time you type a command. So retrieving an abbreviation from a command is fast as it doesn't involve any loop.
+In order to not slow down your prompt, the plugin store abbreviations/aliases and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations/aliases each time you type a command. So retrieving an abbreviation or an alias from a command is fast as it doesn't involve any loop.
 
-The plugin will create lists once during installation by calling `__abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation using `abbr` builtin.
+The plugin will create lists once during installation by calling `__abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation/alias using `abbr` or `functions` builtin.
 
 ## ✅ Support
 
