@@ -31,6 +31,36 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
                 set -e __ABBR_TIPS_KEYS[$abb]
                 set -e __ABBR_TIPS_VALUES[$abb]
         end
+    else if test "$command[1]" = "alias"
+        # Update abbreviations list when adding aliases
+        set -l alias_key
+        set -l alias_value
+
+        if string match -q '*=*' "$command[2]"
+            if test (count $command) = 2
+                set command_split (string split = $command[2])
+                set alias_key "a__$command_split[1]"
+                set alias_value $command_split[2]
+                set -a alias_value $command[3..-1]
+            end
+        else
+            set alias_key "a__$command[2]"
+            set alias_value $command[3..-1]
+        end
+
+        if set -l abb (contains -i -- "$command[3..-1]" $__ABBR_TIPS_KEYS)
+            set __ABBR_TIPS_KEYS[$abb] $alias_key
+            set __ABBR_TIPS_VALUES[$abb] (string trim -c '\'"' -- $alias_value | string join ' ')
+        else
+            set -a __ABBR_TIPS_KEYS $alias_key
+            set -a __ABBR_TIPS_VALUES (string trim -c '\'"' -- $alias_value | string join ' ')
+        end
+    else if test "$command[1]" = "functions"
+        # Update abbreviations list when removing aliases
+        and string match -q -r '^--erase|-e$' -- "$command[2]"
+        and set -l abb (contains -i -- a__{$command[3]} $__ABBR_TIPS_KEYS)
+        set -e __ABBR_TIPS_KEYS[$abb]
+        set -e __ABBR_TIPS_VALUES[$abb]
     end
 
     # Exit in the following cases :
@@ -44,9 +74,12 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     else if abbr -q "$cmd"
        or not type -q "$command[1]"
        return
+    else if string match -q "alias $cmd *" (alias)
+        return
     else if test (type -t "$command[1]") = 'function'
-       and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
-       return
+        and count $ABBR_TIPS_ALIAS_WHITELIST >/dev/null
+        and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
+        return
     end
 
     set -l abb
@@ -59,8 +92,19 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     end
 
     if test -n "$abb"
-        echo -e (string replace -a '{{ .cmd }}' "$__ABBR_TIPS_VALUES[$abb]" \
-                (string replace -a '{{ .abbr }}' "$__ABBR_TIPS_KEYS[$abb]" "$ABBR_TIPS_PROMPT"))
+        if string match -q "a__*" "$__ABBR_TIPS_KEYS[$abb]"
+            set -l alias (string sub -s 4 "$__ABBR_TIPS_KEYS[$abb]")
+            if functions -q "$alias"
+                echo -e (string replace -a '{{ .cmd }}' "$__ABBR_TIPS_VALUES[$abb]" \
+                        (string replace -a '{{ .abbr }}' "$alias" "$ABBR_TIPS_PROMPT"))
+            else
+                set -e __ABBR_TIPS_KEYS[$abb]
+                set -e __ABBR_TIPS_VALUES[$abb]
+            end
+        else
+            echo -e (string replace -a '{{ .cmd }}' "$__ABBR_TIPS_VALUES[$abb]" \
+                    (string replace -a '{{ .abbr }}' "$__ABBR_TIPS_KEYS[$abb]" "$ABBR_TIPS_PROMPT"))
+        end
     end
 
     return
