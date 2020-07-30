@@ -11,6 +11,13 @@ Install using fisher :
 ```console
 fisher add Gazorby/fish-abbreviation-tips
 ```
+
+Install using oh-my-fish :
+
+```console
+omf install https://github.com/Gazorby/fish-abbreviation-tips
+```
+
 ## 🔧 Usage
 
 Just use your shell normally and enjoy tips!
