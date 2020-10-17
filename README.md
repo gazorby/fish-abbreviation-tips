@@ -9,7 +9,7 @@ Help you remembering abbreviations and aliases by displaying tips when you can u
 Install using fisher :
 
 ```console
-fisher add Gazorby/fish-abbreviation-tips
+fisher add gazorby/fish-abbreviation-tips
 ```
 ## 🔧 Usage
 
