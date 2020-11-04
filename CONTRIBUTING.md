@@ -8,7 +8,7 @@ Please open an issue and discuss the problem / feature before starting to code.
 
 - Keep the style consistent with existent code.
 - Stay with pure fish (use builtins)
-- Avoid dependancies
+- Avoid dependencies
 
 ## Git Commit Messages
 
