@@ -4,6 +4,11 @@
 
 Help you remembering abbreviations and aliases by displaying tips when you can use them
 
+## ✅ Requirements
+
+- [fish](https://github.com/fish-shell/fish-shell) 3.1.0+
+- [fisher](https://github.com/jorgebucaran/fisher) 4.0+
+
 ## 🚀 Install
 
 Install using fisher :
@@ -82,10 +87,6 @@ You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be teste
 In order to not slow down your prompt, the plugin store abbreviations/aliases and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations/aliases each time you type a command. So retrieving an abbreviation or an alias from a command is fast as it doesn't involve any loop.
 
 The plugin will create lists once during installation by calling `__abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation/alias using `abbr` or `functions` builtin.
-
-## ✅ Support
-
-- [fish](https://github.com/fish-shell/fish-shell) 3.1.0+
 
 ## 💭 Inspiration
 
