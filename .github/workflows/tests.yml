@@ -33,7 +33,7 @@ jobs:
       - name: Install fisher
         run: |
           fish --version
-          curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
+          fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
 
       # Runs a single command using the runners shell
       - name: Run tests
