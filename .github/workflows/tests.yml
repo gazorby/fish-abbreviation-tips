@@ -33,8 +33,8 @@ jobs:
       - name: Install fisher
         run: |
           fish --version
-          curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+          curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
 
       # Runs a single command using the runners shell
       - name: Run tests
-        run: fish -c "fisher add jorgebucaran/fishtape .; fishtape test/*.fish"
+        run: fish -c "fisher install jorgebucaran/fishtape .; fishtape test/*.fish"
