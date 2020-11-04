@@ -37,4 +37,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run tests
-        run: fish -c "fisher install jorgebucaran/fishtape .; fishtape test/*.fish"
+        run: |
+          fish -c "fisher install jorgebucaran/fishtape ."
+          fish -c "fishtape test/*.fish"
