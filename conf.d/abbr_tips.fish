@@ -24,12 +24,6 @@ function __abbr_tips_install --on-event abbr_tips_install
     end
 end
 
-function __abbr_tips_update --on-event abbr_tips_update
-    if test "$USER" != 'root'
-        fish -c '__abbr_tips_init' &
-    end
-end
-
 function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the current command"
     set -l command (string split ' ' "$argv")
     set -l cmd (string replace -r -a '\\s+' ' ' "$argv" )
