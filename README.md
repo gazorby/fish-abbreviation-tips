@@ -7,20 +7,22 @@ Help you remembering abbreviations and aliases by displaying tips when you can u
 ## ✅ Requirements
 
 - [fish](https://github.com/fish-shell/fish-shell) 3.1.0+
-- [fisher](https://github.com/jorgebucaran/fisher) 4.0+
+
 
 ## 🚀 Install
 
-Install using fisher :
+Install using [Fisher](https://github.com/jorgebucaran/fisher):
 
 ```console
-fisher add gazorby/fish-abbreviation-tips
+fisher install gazorby/fish-abbreviation-tips
 ```
+
 ## 🔧 Usage
 
 Just use your shell normally and enjoy tips!
 
 ### Adding / removing abbreviations or aliases
+
 The plugin automatically track changes when adding/removing abbreviations or aliases using `abbr` or `functions` commands (see [behind the scenes](#-behind-the-scenes)), so you won't see tips anymore for an abbreviation/alias that has been erased, and you will get new ones for newly added abbreviations/aliases
 
 ## 🛠 Configuration
@@ -84,6 +86,7 @@ To tackle this, we have a default regex that will match commands with arguments 
 You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex match an abbreviation/alias, it won't go further. Keep in mind that only the *first matching group* will be tested. (so you must have at least one per regex)
 
 ## 🎥 Behind the scenes
+
 In order to not slow down your prompt, the plugin store abbreviations/aliases and their corresponding commands in lists (actually simulating a dictionary, as [fish doesn't support dict yet](https://github.com/fish-shell/fish-shell/issues/390)) to avoid iterating over all abbreviations/aliases each time you type a command. So retrieving an abbreviation or an alias from a command is fast as it doesn't involve any loop.
 
 The plugin will create lists once during installation by calling `__abbr_tips_init` in background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation/alias using `abbr` or `functions` builtin.
