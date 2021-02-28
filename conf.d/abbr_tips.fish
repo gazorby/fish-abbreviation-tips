@@ -30,7 +30,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
 
     # Update abbreviations lists when adding/removing abbreviations
     if test "$command[1]" = "abbr"
-        if string match -q -r '^--append|-a$' -- "$command[2]"
+        if string match -q -r '^--add|-a$' -- "$command[2]"
             and not contains -- "$command[3]" $__ABBR_TIPS_KEYS
             set -a __ABBR_TIPS_KEYS "$command[3]"
             set -a __ABBR_TIPS_VALUES "$command[4..-1]"
