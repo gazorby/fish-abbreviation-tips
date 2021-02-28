@@ -21,8 +21,18 @@ function teardown
   set ABBR_TIPS_PROMPT "$tmp_tips_prompt"
 end
 
+function clear_test_var
+    # Clear variables to prevent the results
+    # of each unit test from affecting each other
+    set -g __ABBR_TIPS_KEYS
+    set -g __ABBR_TIPS_VALUES
+end
+
+setup
+
 # Tests
 @test "initial tip key" (
+  clear_test_var
   abbr -a __abbr_test ps
   set -e __ABBR_TIPS_KEYS
   __abbr_tips_init
@@ -30,6 +40,7 @@ end
 ) "$status" = 0
 
 @test "initial tip value" (
+  clear_test_var
   abbr -a __abbr_test ps
   set -e __ABBR_TIPS_VALUES
   __abbr_tips_init
@@ -37,68 +48,82 @@ end
 ) "$status" = 0
 
 @test "add abbreviation tip key" (
+  clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
   contains "__abbr_test" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "add abbreviation tip value" (
+  clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
   contains "ps" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 
 @test "remove abbreviation tip key" (
+  clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
   __abbr_tips 'abbr -e __abbr_test'
   not contains "__abbr_test" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "remove abbreviation tip value" (
+  clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
   __abbr_tips 'abbr -e __abbr_test'
   not contains "ps" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 @test "add alias tip key" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "add alias tip value" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   contains "grep -q" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 @test "add alias tip value with =" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias=grep"'
   contains "grep" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 @test "add alias tip key with =" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias=grep"'
   contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 
 @test "remove alias tip key" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   __abbr_tips  'functions --erase __abbr_test_alias'
   not contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "remove alias tip value" (
+  clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   __abbr_tips 'functions --erase __abbr_test_alias'
   not contains "grep -q" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 @test "abbreviation tip match" (
+  clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
   echo (__abbr_tips 'ps')
 ) = "__abbr_test => ps"
 
 @test "alias tip match" (
+  clear_test_var
   alias __abbr_test_alias "grep -q"
   __abbr_tips 'alias __abbr_test_alias "grep -q"'
   echo (__abbr_tips 'grep -q')
 ) = "__abbr_test_alias => grep -q"
+
+teardown
