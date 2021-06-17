@@ -5,7 +5,7 @@ function __abbr_tips_init -d "Initialize abbreviations variables for fish-abbr-t
     set -Ux __ABBR_TIPS_VALUES
 
     set -l i 1
-    set -l abb (string replace -r '.*-- ' '' (abbr -s))
+    set -l abb (string replace -r '.*-- ' '' -- (abbr -s))
     while test $i -le (count $abb)
         set -l current_abb (string split -m1 ' ' "$abb[$i]")
         set -a __ABBR_TIPS_KEYS "$current_abb[1]"
@@ -14,7 +14,7 @@ function __abbr_tips_init -d "Initialize abbreviations variables for fish-abbr-t
     end
 
     set -l i 1
-    set -l abb (string replace -r '.*-- ' '' (alias -s))
+    set -l abb (string replace -r '.*-- ' '' -- (alias -s))
     while test $i -le (count $abb)
         set -l current_abb (string split -m2 ' ' "$abb[$i]")
         set -a __ABBR_TIPS_KEYS "a__$current_abb[2]"
