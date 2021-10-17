@@ -1,6 +1,8 @@
-bind --mode insert " " '__abbr_tips_bind_space'
-bind --mode insert \n '__abbr_tips_bind_newline'
-bind --mode insert \r '__abbr_tips_bind_newline'
+for mode in default insert
+    bind --mode $mode " " '__abbr_tips_bind_space'
+    bind --mode $mode \n '__abbr_tips_bind_newline'
+    bind --mode $mode \r '__abbr_tips_bind_newline'
+end
 
 set -g __abbr_tips_used 0
 
