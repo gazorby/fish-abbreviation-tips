@@ -1,6 +1,6 @@
-bind " " '__abbr_tips_bind_space'
-bind \n '__abbr_tips_bind_newline'
-bind \r '__abbr_tips_bind_newline'
+bind --mode insert " " '__abbr_tips_bind_space'
+bind --mode insert \n '__abbr_tips_bind_newline'
+bind --mode insert \r '__abbr_tips_bind_newline'
 
 set -g __abbr_tips_used 0
 
