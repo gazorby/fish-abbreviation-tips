@@ -31,6 +31,8 @@ end
 setup
 
 # Tests
+
+# Initialization
 @test "initial tip key" (
   clear_test_var
   abbr -a __abbr_test ps
@@ -47,6 +49,8 @@ setup
   contains "ps" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
+
+# Add abbreviation
 @test "add abbreviation tip key" (
   clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
@@ -55,11 +59,12 @@ setup
 
 @test "add abbreviation tip value" (
   clear_test_var
-  __abbr_tips 'abbr -a __abbr_test ps'
-  contains "ps" $__ABBR_TIPS_VALUES
+  __abbr_tips 'abbr -a __abbr_test ps -h'
+  contains "ps -h" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 
+# Remove abbreviation
 @test "remove abbreviation tip key" (
   clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'
@@ -74,6 +79,8 @@ setup
   not contains "ps" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
+
+# Add alias
 @test "add alias tip key" (
   clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
@@ -99,6 +106,7 @@ setup
 ) "$status" = 0
 
 
+# Remove alias
 @test "remove alias tip key" (
   clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
@@ -113,6 +121,8 @@ setup
   not contains "grep -q" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
+
+# Test tip
 @test "abbreviation tip match" (
   clear_test_var
   __abbr_tips 'abbr -a __abbr_test ps'

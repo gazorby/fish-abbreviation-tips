@@ -6,7 +6,6 @@ end
 
 set -g __abbr_tips_used 0
 
-
 function __abbr_tips_install --on-event abbr_tips_install
     # Regexes used to find abbreviation inside command
     # Only the first matching group will be tested as an abbr
@@ -32,12 +31,15 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
 
     # Update abbreviations lists when adding/removing abbreviations
     if test "$command[1]" = "abbr"
-        if string match -q -r '^--add|-a$' -- "$command[2]"
-            and not contains -- "$command[3]" $__ABBR_TIPS_KEYS
-            set -a __ABBR_TIPS_KEYS "$command[3]"
-            set -a __ABBR_TIPS_VALUES "$command[4..-1]"
-        else if string match -q -r '^--erase|-e$' -- "$command[2]"
-            and set -l abb (contains -i -- "$command[3]" $__ABBR_TIPS_KEYS)
+        # Parse args as abbr options
+        argparse --name 'abbr' --ignore-unknown 'a/add' 'e/erase' 'g/global' 'U/universal' -- $command
+
+        if set -q _flag_a
+            and not contains -- "$argv[2]" $__ABBR_TIPS_KEYS
+            set -a __ABBR_TIPS_KEYS "$argv[2]"
+            set -a __ABBR_TIPS_VALUES "$argv[3..-1]"
+        else if set -q _flag_e
+            and set -l abb (contains -i -- "$argv[2]" $__ABBR_TIPS_KEYS)
             set -e __ABBR_TIPS_KEYS[$abb]
             set -e __ABBR_TIPS_VALUES[$abb]
         end
@@ -46,19 +48,22 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         set -l alias_key
         set -l alias_value
 
-        if string match -q '*=*' -- "$command[2]"
-            if test (count $command) = 2
-                set command_split (string split '=' -- $command[2])
+        # Parse args as `alias` options
+        argparse --name 'alias' --ignore-unknown 's/save' -- $command
+
+        if string match -q '*=*' -- "$argv[2]"
+            if test (count $argv) = 2
+                set command_split (string split '=' -- $argv[2])
                 set alias_key "a__$command_split[1]"
                 set alias_value $command_split[2]
                 set -a alias_value $command[3..-1]
             end
         else
-            set alias_key "a__$command[2]"
-            set alias_value $command[3..-1]
+            set alias_key "a__$argv[2]"
+            set alias_value $argv[3..-1]
         end
 
-        if set -l abb (contains -i -- "$command[3..-1]" $__ABBR_TIPS_KEYS)
+        if set -l abb (contains -i -- "$argv[3..-1]" $__ABBR_TIPS_KEYS)
             set __ABBR_TIPS_KEYS[$abb] $alias_key
             set __ABBR_TIPS_VALUES[$abb] (string trim -c '\'"' -- $alias_value | string join ' ')
         else
@@ -66,11 +71,15 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
             set -a __ABBR_TIPS_VALUES (string trim -c '\'"' -- $alias_value | string join ' ')
         end
     else if test "$command[1]" = "functions"
+        # Parse args as `functions` options
+        argparse --name 'functions' 'e/erase' -- $command
+
         # Update abbreviations list when removing aliases
-        and string match -q -r '^--erase|-e$' -- "$command[2]"
-        and set -l abb (contains -i -- a__{$command[3]} $__ABBR_TIPS_KEYS)
-        set -e __ABBR_TIPS_KEYS[$abb]
-        set -e __ABBR_TIPS_VALUES[$abb]
+        if set -q _flag_e
+            and set -l abb (contains -i -- a__{$argv[2]} $__ABBR_TIPS_KEYS)
+            set -e __ABBR_TIPS_KEYS[$abb]
+            set -e __ABBR_TIPS_VALUES[$abb]
+        end
     end
 
     # Exit in the following cases :
