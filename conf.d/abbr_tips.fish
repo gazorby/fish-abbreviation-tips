@@ -2,6 +2,7 @@ for mode in default insert
     bind --mode $mode " " '__abbr_tips_bind_space'
     bind --mode $mode \n '__abbr_tips_bind_newline'
     bind --mode $mode \r '__abbr_tips_bind_newline'
+    bind --mode $mode \e\[A '__abbr_tips_history_backward' # arrow up key
 end
 
 set -g __abbr_tips_used 0
@@ -14,9 +15,8 @@ function __abbr_tips_install --on-event abbr_tips_install
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){3}).*'
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){2}).*'
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){1}).*'
-
+    set -Ux ABBR_TIPS_DISABLE_HISTORY_TIPS 1
     set -Ux ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
-    set -gx ABBR_TIPS_AUTO_UPDATE 'background'
 
     # Locking mechanism
     # Prevent this file to spawn more than one subshell
@@ -141,6 +141,7 @@ function __abbr_tips_uninstall --on-event abbr_tips_uninstall
     set --erase ABBR_TIPS_AUTO_UPDATE
     set --erase ABBR_TIPS_ALIAS_WHITELIST
     set --erase ABBR_TIPS_REGEXES
+    set --erase ABBR_TIPS_DISABLE_HISTORY_TIPS
     functions --erase __abbr_tips_init
     functions --erase __abbr_tips_bind_newline
     functions --erase __abbr_tips_bind_space
