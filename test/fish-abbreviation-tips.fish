@@ -26,6 +26,9 @@ function clear_test_var
     # of each unit test from affecting each other
     set -g __ABBR_TIPS_KEYS
     set -g __ABBR_TIPS_VALUES
+    abbr -e __abbr_test
+    abbr -e __abbr_test_one
+    abbr -e __abbr_test_two
 end
 
 setup
@@ -135,5 +138,21 @@ setup
   __abbr_tips 'alias __abbr_test_alias "grep -q"'
   echo (__abbr_tips 'grep -q')
 ) = "__abbr_test_alias => grep -q"
+
+@test "multiple abbreviation tip match" (
+  clear_test_var
+  abbr -a __abbr_test_one ps
+  abbr -a __abbr_test_two "grep -q"
+  __abbr_tips_init
+  echo (__abbr_tips 'grep -q')
+) = "__abbr_test_two => grep -q"
+
+@test "multiple alias tip match" (
+  clear_test_var
+  alias abbr_test_alias_one ps
+  alias abbr_test_alias_two "grep -q"
+  __abbr_tips_init
+  echo (__abbr_tips 'grep -q')
+) = "abbr_test_alias_two => grep -q"
 
 teardown
