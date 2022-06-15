@@ -15,10 +15,10 @@ function setup
 end
 
 function teardown
-  # Restore variables
-  set __ABBR_TIPS_KEYS $tmp_keys
-  set __ABBR_TIPS_VALUES $tmp_values
-  set ABBR_TIPS_PROMPT "$tmp_tips_prompt"
+    # Restore variables
+    set __ABBR_TIPS_KEYS $tmp_keys
+    set __ABBR_TIPS_VALUES $tmp_values
+    set ABBR_TIPS_PROMPT "$tmp_tips_prompt"
 end
 
 function clear_test_var
