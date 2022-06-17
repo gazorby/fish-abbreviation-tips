@@ -53,14 +53,38 @@ setup
 # Add abbreviation
 @test "add abbreviation tip key" (
   clear_test_var
-  __abbr_tips 'abbr -a __abbr_test ps'
+  __abbr_tips 'abbr -a __abbr_test grep -q'
   contains "__abbr_test" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
 @test "add abbreviation tip value" (
   clear_test_var
-  __abbr_tips 'abbr -a __abbr_test ps -h'
-  contains "ps -h" $__ABBR_TIPS_VALUES
+  __abbr_tips 'abbr -a __abbr_test grep -q'
+  contains "grep -q" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add abbreviation tip key with simple quotes" (
+  clear_test_var
+  __abbr_tips 'abbr -a __abbr_test \'grep -q\''
+  contains "__abbr_test" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+@test "add abbreviation tip value with simple quotes" (
+  clear_test_var
+  __abbr_tips 'abbr -a __abbr_test \'grep -q\''
+  contains "grep -q" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add abbreviation tip key with double quotes" (
+  clear_test_var
+  __abbr_tips 'abbr -a __abbr_test "grep -q"'
+  contains "__abbr_test" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+@test "add abbreviation tip value with double quotes" (
+  clear_test_var
+  __abbr_tips 'abbr -a __abbr_test "grep -q"'
+  contains "grep -q" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 
@@ -81,13 +105,25 @@ setup
 
 
 # Add alias
-@test "add alias tip key" (
+@test "add alias tip key simple quotes" (
+  clear_test_var
+  __abbr_tips  'alias __abbr_test_alias \'grep -q\''
+  contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
+) "$status" = 0
+
+@test "add alias tip value simple quotes" (
+  clear_test_var
+  __abbr_tips  'alias __abbr_test_alias \'grep -q\''
+  contains "grep -q" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add alias tip key double quotes" (
   clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
-@test "add alias tip value" (
+@test "add alias tip value double quotes" (
   clear_test_var
   __abbr_tips  'alias __abbr_test_alias "grep -q"'
   contains "grep -q" $__ABBR_TIPS_VALUES

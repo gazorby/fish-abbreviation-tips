@@ -6,6 +6,11 @@ end
 
 set -g __abbr_tips_used 0
 
+# Trim simple/double quotes from args
+function trim_value
+    echo "$argv" | string trim --left --right --chars '"\'' | string join ' '
+end
+
 function __abbr_tips_install --on-event abbr_tips_install
     # Regexes used to find abbreviation inside command
     # Only the first matching group will be tested as an abbr
@@ -37,7 +42,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         if set -q _flag_a
             and not contains -- "$argv[2]" $__ABBR_TIPS_KEYS
             set -a __ABBR_TIPS_KEYS "$argv[2]"
-            set -a __ABBR_TIPS_VALUES "$argv[3..-1]"
+            set -a __ABBR_TIPS_VALUES (trim_value "$argv[3..-1]")
         else if set -q _flag_e
             and set -l abb (contains -i -- "$argv[2]" $__ABBR_TIPS_KEYS)
             set -e __ABBR_TIPS_KEYS[$abb]
@@ -63,12 +68,14 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
             set alias_value $argv[3..-1]
         end
 
+        set alias_value (trim_value "$alias_value")
+
         if set -l abb (contains -i -- "$argv[3..-1]" $__ABBR_TIPS_KEYS)
             set __ABBR_TIPS_KEYS[$abb] $alias_key
-            set __ABBR_TIPS_VALUES[$abb] (string trim -c '\'"' -- $alias_value | string join ' ')
+            set __ABBR_TIPS_VALUES[$abb] $alias_value
         else
             set -a __ABBR_TIPS_KEYS $alias_key
-            set -a __ABBR_TIPS_VALUES (string trim -c '\'"' -- $alias_value | string join ' ')
+            set -a __ABBR_TIPS_VALUES $alias_value
         end
     else if test "$command[1]" = "functions"
         # Parse args as `functions` options
