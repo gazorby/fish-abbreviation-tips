@@ -53,7 +53,7 @@ By default, tips will show up like this :
 💡 ga => git add
 ```
 
-But you customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation/alias and `{{ .cmd }}` with the corresponding command.
+But you can customize it using the prompt environment variable. The plugin will replace `{{ .abbr }}` with the abbreviation/alias and `{{ .cmd }}` with the corresponding command.
 
 ⚠️ tips are displayed using `echo -e` (interpretation of backslash escapes)
 
