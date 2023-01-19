@@ -1,7 +1,7 @@
 for mode in default insert
-    bind --mode $mode " " '__abbr_tips_bind_space'
-    bind --mode $mode \n '__abbr_tips_bind_newline'
-    bind --mode $mode \r '__abbr_tips_bind_newline'
+    bind --mode $mode " " __abbr_tips_bind_space
+    bind --mode $mode \n __abbr_tips_bind_newline
+    bind --mode $mode \r __abbr_tips_bind_newline
 end
 
 set -g __abbr_tips_used 0
@@ -21,13 +21,9 @@ function __abbr_tips_install --on-event abbr_tips_install
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){1}).*'
 
     set -Ux ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
-    set -gx ABBR_TIPS_AUTO_UPDATE 'background'
+    set -gx ABBR_TIPS_AUTO_UPDATE background
 
-    # Locking mechanism
-    # Prevent this file to spawn more than one subshell
-    if test "$USER" != 'root'
-        fish -c '__abbr_tips_init' &
-    end
+    __abbr_tips_init
 end
 
 function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the current command"
@@ -35,9 +31,9 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     set -l cmd (string replace -r -a '\\s+' ' ' -- "$argv" )
 
     # Update abbreviations lists when adding/removing abbreviations
-    if test "$command[1]" = "abbr"
+    if test "$command[1]" = abbr
         # Parse args as abbr options
-        argparse --name 'abbr' --ignore-unknown 'a/add' 'e/erase' 'g/global' 'U/universal' -- $command
+        argparse --name abbr --ignore-unknown a/add e/erase g/global U/universal -- $command
 
         if set -q _flag_a
             and not contains -- "$argv[2]" $__ABBR_TIPS_KEYS
@@ -48,13 +44,13 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
             set -e __ABBR_TIPS_KEYS[$abb]
             set -e __ABBR_TIPS_VALUES[$abb]
         end
-    else if test "$command[1]" = "alias"
+    else if test "$command[1]" = alias
         # Update abbreviations list when adding aliases
         set -l alias_key
         set -l alias_value
 
         # Parse args as `alias` options
-        argparse --name 'alias' --ignore-unknown 's/save' -- $command
+        argparse --name alias --ignore-unknown s/save -- $command
 
         if string match -q '*=*' -- "$argv[2]"
             if test (count $argv) = 2
@@ -77,9 +73,9 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
             set -a __ABBR_TIPS_KEYS $alias_key
             set -a __ABBR_TIPS_VALUES $alias_value
         end
-    else if test "$command[1]" = "functions"
+    else if test "$command[1]" = functions
         # Parse args as `functions` options
-        argparse --name 'functions' 'e/erase' -- $command
+        argparse --name functions e/erase -- $command
 
         # Update abbreviations list when removing aliases
         if set -q _flag_e
@@ -102,7 +98,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         return
     else if string match -q -- "alias $cmd *" (alias)
         return
-    else if test (type -t "$command[1]") = 'function'
+    else if test (type -t "$command[1]") = function
         and count $ABBR_TIPS_ALIAS_WHITELIST >/dev/null
         and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
         return
@@ -134,6 +130,10 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     end
 
     return
+end
+
+function __abbr_tips_update --on-event abbr_tips_update
+    __abbr_tips_reset
 end
 
 function __abbr_tips_uninstall --on-event abbr_tips_uninstall
