@@ -1,5 +1,4 @@
-function __abbr_tips_reset
-    # Same as __abbr_tips_uninstall, but keep __abbr_tips_init
+function __abbr_tips_clean -d "Clean plugin variables and functions"
     bind --erase \n
     bind --erase \r
     bind --erase " "
@@ -14,6 +13,4 @@ function __abbr_tips_reset
     functions --erase __abbr_tips_bind_newline
     functions --erase __abbr_tips_bind_space
     functions --erase __abbr_tips
-
-    __abbr_tips_install
 end
