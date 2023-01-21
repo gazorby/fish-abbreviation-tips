@@ -134,7 +134,7 @@ end
 
 function __abbr_tips_update --on-event abbr_tips_update
     __abbr_tips_clean
-    __abbr_tips_init
+    __abbr_tips_install
 end
 
 function __abbr_tips_uninstall --on-event abbr_tips_uninstall
