@@ -1,0 +1,70 @@
+# From https://github.com/PatrickF1/fzf.fish/blob/a79dc7510d02f25360c2f30e50287abd0766a588/.github/workflows/continuous_integration.yml
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fish-actions/install-fish@v1.1.0
+
+      - uses: fish-actions/fisher@v1
+        with:
+          plugins: jorgebucaran/fishtape ilancosman/clownfish $GITHUB_WORKSPACE
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+        # Homebrew is only missing from ubuntu images per https://github.com/actions/runner-images/issues/6283
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Install fzf and fd
+        run: brew install fzf fd
+
+      - name: Run full test suite
+        run: fishtape tests/*.fish
+        shell: fish {0}
+        # timeout in case tests get stuck on fzf
+        timeout-minutes: 3
+
+  syntax-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: fish-actions/install-fish@v1
+
+      - uses: fish-actions/syntax-check@v1
+
+  # check Fish format
+  format-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: fish-actions/install-fish@v1
+
+      - uses: fish-actions/format-check@v1
+
+  # check Markdown and Yaml format
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actionsx/prettier@v2
+        with:
+          args: --check .
