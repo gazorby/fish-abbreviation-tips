@@ -23,7 +23,7 @@ jobs:
         uses: fish-shop/install-plugin@v1
         with:
           plugin-manager: fisher
-          plugins: gazorby/fish-abbrevation-tips
+          plugins: gazorby/fish-abbreviation-tips
 
       - name: Run Fishtape tests
         uses: fish-shop/run-fishtape-tests@v1
