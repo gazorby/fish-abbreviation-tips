@@ -82,7 +82,7 @@ gcm => git commit -m
 So you want a tip when typing `git commit -m "my commit"`, but the command doesn't match exactly `git commit -m`.
 To tackle this, we have a default regex that will match commands with arguments removed, so your `git commit -m "my commit"` will be tested as `git commit -m`.
 
-You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex matches an abbreviation/alias, it won't go further. Remember that only the *first matching group* will be tested. (so you must have at least one per regex)
+You can add such regexes to the `ABBR_TIPS_REGEXES` list, and they will be tested in the order in which they have been added (see [default configuration](#default-configuration)). Matching is lazy, so if the string extracted with the first regex matches an abbreviation/alias, it won't go further. Remember that only the _first matching group_ will be tested. (so you must have at least one per regex)
 
 ## 🎥 Behind the scenes
 
@@ -95,4 +95,5 @@ The plugin will create lists once during installation by calling `__abbr_tips_in
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
 ## 📝 License
+
 [MIT](https://github.com/Gazorby/fish-abbreviation-tips/blob/master/LICENSE)

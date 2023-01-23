@@ -7,5 +7,5 @@ function __abbr_tips_bind_space
             set -g __abbr_tips_used 0
         end
     end
-    commandline -f 'expand-abbr'
+    commandline -f expand-abbr
 end
