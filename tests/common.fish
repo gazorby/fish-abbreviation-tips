@@ -4,6 +4,7 @@
 function setup
     # Source plugin
     source functions/__abbr_tips_init.fish
+    source functions/__abbr_tips_clean.fish
     source conf.d/abbr_tips.fish
     source functions/__abbr_tips_bind_newline.fish
     source functions/__abbr_tips_bind_space.fish
