@@ -6,5 +6,5 @@ function __abbr_tips_bind_newline
             set -g __abbr_tips_used 0
         end
     end
-    commandline -f 'execute'
+    commandline -f execute
 end
