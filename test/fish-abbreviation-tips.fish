@@ -134,16 +134,27 @@ setup
 
 @test "add alias tip value with =" (
   clear_test_var
-  __abbr_tips  'alias __abbr_test_alias=grep"'
+  __abbr_tips  'alias __abbr_test_alias=grep'
   contains "grep" $__ABBR_TIPS_VALUES
 ) "$status" = 0
 
 @test "add alias tip key with =" (
   clear_test_var
-  __abbr_tips  'alias __abbr_test_alias=grep"'
+  __abbr_tips  'alias __abbr_test_alias=grep'
   contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
 ) "$status" = 0
 
+@test "add alias tip value with = and quotes" (
+  clear_test_var
+  __abbr_tips  'alias __abbr_test_alias="grep "'
+  contains "grep" $__ABBR_TIPS_VALUES
+) "$status" = 0
+
+@test "add alias tip key with = and quotes" (
+  clear_test_var
+  __abbr_tips  'alias __abbr_test_alias="grep "'
+  contains "a____abbr_test_alias" $__ABBR_TIPS_KEYS
+) "$status" = 0
 
 # Remove alias
 @test "remove alias tip key" (

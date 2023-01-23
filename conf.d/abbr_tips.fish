@@ -53,12 +53,9 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
         argparse --name alias --ignore-unknown s/save -- $command
 
         if string match -q '*=*' -- "$argv[2]"
-            if test (count $argv) = 2
-                set command_split (string split '=' -- $argv[2])
-                set alias_key "a__$command_split[1]"
-                set alias_value $command_split[2]
-                set -a alias_value $command[3..-1]
-            end
+            set command_split (string split '=' -- $argv[2])
+            set alias_key "a__$command_split[1]"
+            set alias_value $command_split[2..-1]
         else
             set alias_key "a__$argv[2]"
             set alias_value $argv[3..-1]
