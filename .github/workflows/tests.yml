@@ -39,4 +39,4 @@ jobs:
       - name: Run tests
         run: |
           fish -c "fisher install jorgebucaran/fishtape; and fisher install ."
-          fish -c "fishtape test/*.fish"
+          fish -c "fishtape tests/*.fish"
