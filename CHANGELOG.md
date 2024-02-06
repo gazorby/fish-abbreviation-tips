@@ -1,3 +1,8 @@
+## 0.7.1 (2024-02-06)
+
+- docs: update README, LICENSE and CHANGELOG
+- 🐛 fix: match exact abbreviation first
+
 ## 0.5.1 (2020-05-12)
 
 - ♻️ ref: prefix with '\_\_' for private scope

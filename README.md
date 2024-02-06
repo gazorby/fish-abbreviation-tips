@@ -13,7 +13,7 @@ It helps you remember abbreviations and aliases by displaying tips when you can 
 Install using [Fisher](https://github.com/jorgebucaran/fisher):
 
 ```fish
-fisher install gazorby/fish-abbreviation-tips
+fisher install rwietter/fish-abbreviation-tips
 ```
 
 ## 🔧 Usage
@@ -90,10 +90,30 @@ In order to not slow down your prompt, the plugin store abbreviations/aliases an
 
 The plugin will create lists once during installation by calling `__abbr_tips_init` in the background (more precisely in spawned shell, because [fish doesn't put functions in background](https://github.com/fish-shell/fish-shell/issues/238)). Then, lists will get updated when you add or remove abbreviation/alias using `abbr` or `functions` builtin.
 
+## Recommended
+
+In your fish configuration file, you can add the following to make the tips more visible :
+
+```fish
+function abbr_update_keys_and_values
+    __abbr_tips_init
+end
+
+abbr_update_keys_and_values
+```
+
+## Customize your tips
+
+In your fish configuration file, you can add the following to customize your tips :
+
+```fish
+set -Ux ABBR_TIPS_PROMPT "❱ \e[38;2;243;134;48;4;1m{{ .abbr }}\e[0m => \e[38;2;189;153;255;4;1m{{ .cmd }}\e[0m"
+```
+
 ## 💭 Inspiration
 
 Inspired by [zsh-fast-alias-tips](https://github.com/sei40kr/zsh-fast-alias-tips) and [alias-tips](https://github.com/djui/alias-tips) zsh plugins
 
 ## 📝 License
 
-[MIT](https://github.com/Gazorby/fish-abbreviation-tips/blob/master/LICENSE)
+[MIT](https://github.com/rwietter/fish-abbreviation-tips/blob/master/LICENSE)
