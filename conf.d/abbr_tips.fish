@@ -15,7 +15,7 @@ function __abbr_tips_install --on-event abbr_tips_install
     # Regexes used to find abbreviation inside command
     # Only the first matching group will be tested as an abbr
     set -Ux ABBR_TIPS_REGEXES
-    set -a ABBR_TIPS_REGEXES '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)'
+    set -a ABBR_TIPS_REGEXES '^(\w+)\s?(\w+)\s?(\S+.)'
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){3}).*'
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){2}).*'
     set -a ABBR_TIPS_REGEXES '(^(\s?(\w-?)+){1}).*'
@@ -104,8 +104,13 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     set -l abb
     if not set abb (contains -i -- "$cmd" $__ABBR_TIPS_VALUES)
         for r in $ABBR_TIPS_REGEXES
-            if set abb (contains -i -- (string replace -r -a -- "$r" '$1' "$cmd") $__ABBR_TIPS_VALUES)
-                break
+            set -l possible_matchs (string match -r $r -- $cmd)
+            for tip in $__ABBR_TIPS_VALUES
+            set -l exact_match (string match -r -- $tip $possible_matchs[1])
+                if test -n "$exact_match"
+                    set abb (contains -i -- $tip $__ABBR_TIPS_VALUES)
+                    break
+                end
             end
         end
     end
